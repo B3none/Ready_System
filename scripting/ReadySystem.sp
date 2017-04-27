@@ -76,7 +76,7 @@ public void OnClientDisconnect(int client)
 
 public void OnMapStart() 
 {
-	i_PlayersNeeded = 4;
+	i_PlayersNeeded = 2;
 	i_PlayersReady = 0;
 	i_PlayersUnready = 0;
 	
@@ -88,7 +88,7 @@ public void OnMapStart()
 
 public void OnMapEnd() 
 { 
-	i_PlayersNeeded = 4;
+	i_PlayersNeeded = 2;
 	i_PlayersReady = 0;
 	i_PlayersUnready = 0;
 	
