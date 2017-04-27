@@ -1,9 +1,3 @@
-/*
-*	TODO:
-*	-> Clan tag setting
-*	-> HintBox Counting
-*/
-
 #include <sourcemod>
 
 #pragma semicolon 1 
@@ -12,9 +6,10 @@
 #define TAG_MESSAGE "[\x04VoidRealityCheck\x01]"
 
 bool b_PlayerReady[MAXPLAYERS+1];
-int i_PlayersNeeded;
+int i_PlayersNeeded = 2;
 int i_PlayersReady;
 int i_PlayersUnready;
+float f_AdvertInterval = 15.0;
 
 public Plugin myinfo =  
 { 
@@ -22,12 +17,12 @@ public Plugin myinfo =
     author      = "B3none", 
     description = "Player Ready System", 
     version     = "0.0.1", 
-    url         = "https://www.youtube.com/watch?v=IW3aI6zjGl4" 
+    url         = "www.voidrealitygaming.co.uk" 
 }; 
 
 public void OnPluginStart()
 {
-	CreateTimer(30.0, Announce_Ready);
+	CreateTimer(f_AdvertInterval, Announce_Ready);
 	RegConsoleCmd("sm_ready", Command_PlayerReady);
 }
 
@@ -36,7 +31,7 @@ public Action Announce_Ready(Handle timer)
 	PrintToChatAll("%s \x0C%i\x01/\x0C%i\x01 players ready.", TAG_MESSAGE, i_PlayersReady, i_PlayersNeeded);
 	PrintToChatAll("%s There are \x0C%i\x01 players unready.", TAG_MESSAGE, i_PlayersUnready);
 	
-	CreateTimer(30.0, Announce_Ready);
+	CreateTimer(f_AdvertInterval, Announce_Ready);
 }
 
 public Action Command_PlayerReady(int client, int args)
@@ -52,6 +47,16 @@ public Action Command_PlayerReady(int client, int args)
 	{
 		AllReady();
 	}
+}
+
+public Action Command_PlayerUnready(int client, int args)
+{
+	b_PlayerReady[client] = false;
+	i_PlayersUnready++;
+	i_PlayersReady = i_PlayersReady - 1;
+	
+	PrintToChat(client, "%s You are now unready.");
+	PrintToChatAll("%s There are now \x0C%i\x01/\x0C%i\x01 players ready.", TAG_MESSAGE, i_PlayersReady, i_PlayersNeeded);
 }
 
 public Action AllReady()
@@ -76,7 +81,6 @@ public void OnClientDisconnect(int client)
 
 public void OnMapStart() 
 {
-	i_PlayersNeeded = 2;
 	i_PlayersReady = 0;
 	i_PlayersUnready = 0;
 	
@@ -88,7 +92,6 @@ public void OnMapStart()
 
 public void OnMapEnd() 
 { 
-	i_PlayersNeeded = 2;
 	i_PlayersReady = 0;
 	i_PlayersUnready = 0;
 	
