@@ -32,6 +32,8 @@ public void OnPluginStart()
 		PrintToChatAll("%s There %s \x0C%i\x01 player%s unready.", TAG_MESSAGE, i_PlayersUnready==1 ? "is":"are", i_PlayersUnready, i_PlayersUnready==1 ? "":"s");
 		CreateTimer(f_AdvertInterval, Announce_Ready);
 	}
+	
+	WarmupConfigs();
 }
 
 public Action Announce_Ready(Handle timer)
@@ -43,6 +45,15 @@ public Action Announce_Ready(Handle timer)
 	{
 		CreateTimer(f_AdvertInterval, Announce_Ready);
 	}
+}
+
+public Action WarmupConfigs()
+{
+	ServerCommand("mp_warmup_pause_timer 1");
+	ServerCommand("mp_death_drop_defuser 0;");
+	ServerCommand("mp_death_drop_grenade 0;");
+	ServerCommand("mp_death_drop_gun 0;");
+	ServerCommand("mp_restartgame 1;");
 }
 
 public Action Command_PlayerReady(int client, int args)
@@ -105,7 +116,7 @@ public void OnMapStart()
 }
 
 public void OnMapEnd() 
-{ 
+{
 	i_PlayersReady = 0;
 	i_PlayersUnready = 0;
 	
