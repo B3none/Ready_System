@@ -49,7 +49,7 @@ public Action Announce_Ready(Handle timer)
 
 public Action WarmupConfigs()
 {
-	ServerCommand("mp_warmup_pause_timer 1");
+	ServerCommand("mp_warmuptime 120;");
 	ServerCommand("mp_death_drop_defuser 0;");
 	ServerCommand("mp_death_drop_grenade 0;");
 	ServerCommand("mp_death_drop_gun 0;");
