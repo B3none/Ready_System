@@ -40,7 +40,9 @@ public Action Announce_Ready(Handle timer)
 	PrintToChatAll("%s There %s \x0C%i\x01 player%s unready.", TAG_MESSAGE, i_PlayersUnready==1 ? "is":"are", i_PlayersUnready, i_PlayersUnready==1 ? "":"s");
 	
 	if(!b_CheckCompleted)
+	{
 		CreateTimer(f_AdvertInterval, Announce_Ready);
+	}
 }
 
 public Action Command_PlayerReady(int client, int args)
