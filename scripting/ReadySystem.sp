@@ -26,16 +26,20 @@ public void OnPluginStart()
 {
 	RegConsoleCmd("sm_ready", Command_PlayerReady);
 	
-	if(b_CheckCompleted)
+	if(!b_CheckCompleted)
+	{
+		PrintToChatAll("%s \x0C%i\x01/\x0C%i\x01 players ready.", TAG_MESSAGE, i_PlayersReady, i_PlayersNeeded);
+		PrintToChatAll("%s There %s \x0C%i\x01 player%s unready.", TAG_MESSAGE, i_PlayersUnready==1 ? "is":"are", i_PlayersUnready, i_PlayersUnready==1 ? "":"s");
 		CreateTimer(f_AdvertInterval, Announce_Ready);
+	}
 }
 
 public Action Announce_Ready(Handle timer)
 {
 	PrintToChatAll("%s \x0C%i\x01/\x0C%i\x01 players ready.", TAG_MESSAGE, i_PlayersReady, i_PlayersNeeded);
-	PrintToChatAll("%s There are \x0C%i\x01 player%s unready.", TAG_MESSAGE, i_PlayersUnready, i_PlayersUnready==1 ? "":"s");
+	PrintToChatAll("%s There %s \x0C%i\x01 player%s unready.", TAG_MESSAGE, i_PlayersUnready==1 ? "is":"are", i_PlayersUnready, i_PlayersUnready==1 ? "":"s");
 	
-	if(b_CheckCompleted)
+	if(!b_CheckCompleted)
 		CreateTimer(f_AdvertInterval, Announce_Ready);
 }
 
