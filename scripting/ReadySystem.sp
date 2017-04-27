@@ -11,6 +11,8 @@ int i_PlayersReady;
 int i_PlayersUnready;
 float f_AdvertInterval = 15.0;
 
+bool b_CheckCompleted;
+
 public Plugin myinfo =  
 { 
     name        = "Ready Check", 
@@ -22,15 +24,19 @@ public Plugin myinfo =
 
 public void OnPluginStart()
 {
-	CreateTimer(f_AdvertInterval, Announce_Ready);
 	RegConsoleCmd("sm_ready", Command_PlayerReady);
+	
+	if(b_CheckCompleted)
+		CreateTimer(f_AdvertInterval, Announce_Ready);
 }
 
 public Action Announce_Ready(Handle timer)
 {
 	PrintToChatAll("%s \x0C%i\x01/\x0C%i\x01 players ready.", TAG_MESSAGE, i_PlayersReady, i_PlayersNeeded);
-	PrintToChatAll("%s There are \x0C%i\x01 player%s unready.", TAG_MESSAGE, i_PlayersUnready, i_PlayersUnready==1?"":"s");
-	CreateTimer(f_AdvertInterval, Announce_Ready);
+	PrintToChatAll("%s There are \x0C%i\x01 player%s unready.", TAG_MESSAGE, i_PlayersUnready, i_PlayersUnready==1 ? "":"s");
+	
+	if(b_CheckCompleted)
+		CreateTimer(f_AdvertInterval, Announce_Ready);
 }
 
 public Action Command_PlayerReady(int client, int args)
@@ -44,6 +50,7 @@ public Action Command_PlayerReady(int client, int args)
 	
 	if(i_PlayersReady == i_PlayersNeeded)
 	{
+		b_CheckCompleted = true;
 		AllReady();
 	}
 }
@@ -87,6 +94,8 @@ public void OnMapStart()
 	{
 		b_PlayerReady[i] = false;
 	}
+	
+	b_CheckCompleted = false;
 }
 
 public void OnMapEnd() 
@@ -98,4 +107,6 @@ public void OnMapEnd()
 	{
 		b_PlayerReady[i] = false;
 	}
+	
+	b_CheckCompleted = false;
 }
