@@ -1,0 +1,5 @@
+Plugin(source='scripting/ReadySystem.sp')
+
+Package(name='ReadySystem',
+        plugins=['ReadySystem'],
+)
