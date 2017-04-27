@@ -1,3 +1,9 @@
+/*
+*	TODO:
+*	-> ConVar... Obviously >.<
+*	-> Hint Box Counting
+*/
+
 #include <sourcemod>
 
 #pragma semicolon 1 
