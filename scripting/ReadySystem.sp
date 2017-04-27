@@ -1,3 +1,9 @@
+/*
+*	TODO:
+*	-> Clan tag setting
+*	-> HintBox Counting
+*/
+
 #include <sourcemod>
 
 #pragma semicolon 1 
@@ -14,9 +20,9 @@ public Plugin myinfo =
 { 
     name        = "Ready Check", 
     author      = "B3none", 
-    description = "Warmup until a defined number of players has been reached", 
+    description = "Player Ready System", 
     version     = "0.0.1", 
-    url         = "www.voidrealitygaming.co.uk" 
+    url         = "https://www.youtube.com/watch?v=IW3aI6zjGl4" 
 }; 
 
 public void OnPluginStart()
