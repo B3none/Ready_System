@@ -24,5 +24,8 @@ before_script:
 
     - cd ../../..
 
+script:
+    - smbuilder --flags="-E"
+
 notifications:
     email: true
