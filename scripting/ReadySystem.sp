@@ -29,8 +29,7 @@ public void OnPluginStart()
 public Action Announce_Ready(Handle timer)
 {
 	PrintToChatAll("%s \x0C%i\x01/\x0C%i\x01 players ready.", TAG_MESSAGE, i_PlayersReady, i_PlayersNeeded);
-	PrintToChatAll("%s There are \x0C%i\x01 players unready.", TAG_MESSAGE, i_PlayersUnready);
-	
+	PrintToChatAll("%s There are \x0C%i\x01 player%s unready.", TAG_MESSAGE, i_PlayersUnready, i_PlayersUnready==1?"":"s");
 	CreateTimer(f_AdvertInterval, Announce_Ready);
 }
 
@@ -41,7 +40,7 @@ public Action Command_PlayerReady(int client, int args)
 	i_PlayersReady++;
 	
 	PrintToChat(client, "%s You are now ready.");
-	PrintToChatAll("%s There are now \x0C%i\x01/\x0C%i\x01 players ready.", TAG_MESSAGE, i_PlayersReady, i_PlayersNeeded);
+	PrintToChatAll("%s There are now \x0C%i\x01/\x0C%i\x01 player%s ready.", TAG_MESSAGE, i_PlayersReady, i_PlayersNeeded);
 	
 	if(i_PlayersReady == i_PlayersNeeded)
 	{
